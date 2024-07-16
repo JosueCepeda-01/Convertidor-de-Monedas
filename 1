@@ -1,0 +1,32 @@
+const monedaEntrada = document.getElementById('moneda_entrada');
+const cantidadEntrada = document.getElementById('cantidad_entrada');
+const monedaSalida = document.getElementById('moneda_salida');
+const cantidadSalida = document.getElementById('cantidad_salida');
+
+const tasasDeCambio = {
+    // Ejemplo de tasas de cambio (obtenidas de una API o fuente externa)
+    EURUSD: 1.1234,
+    USDMXN: 20.4567,
+    MXNEUR: 0.04891,
+    // Agregar más pares de divisas y sus tasas de cambio
+};
+
+function convertir() {
+    const cantidad = parseFloat(cantidadEntrada.value);
+    const monedaEntradaValor = monedaEntrada.value;
+    const monedaSalidaValor = monedaSalida.value;
+
+    if (monedaEntradaValor === monedaSalidaValor) {
+        cantidadSalida.value = cantidad;
+        return;
+    }
+
+    const tasaDeCambio = tasasDeCambio[`${monedaEntradaValor}${monedaSalidaValor}`];
+
+    if (!tasaDeCambio) {
+        alert(`No se encontró la tasa de cambio para ${monedaEntradaValor} a ${monedaSalidaValor}`);
+        return;
+    }
+
+    cantidadSalida.value = (cantidad * tasaDeCambio).toFixed(2);
+}
